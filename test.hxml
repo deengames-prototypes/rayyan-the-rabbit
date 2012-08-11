@@ -1,0 +1,26 @@
+# Flash 10+
+-main TestMain
+-lib munit
+-lib hamcrest
+-lib nme
+-lib mcover
+-cp Source
+-debug
+
+-cp test
+-swf-version 10
+-swf build/as3_test.swf
+--next
+
+# Neko
+-main TestMain
+-lib munit
+-lib hamcrest
+-lib nme
+-lib mcover
+-cp Source
+-debug
+
+-cp test
+-neko build/neko_test.n
+-debug
