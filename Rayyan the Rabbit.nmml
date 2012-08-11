@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="Legend of Hamza" package="com.deengames.rayyantherabbit" version="1.0.0" company="Deen Games" />
+	<app path="Export" file="RayyanTheRabbit" main="com.deengames.rayyantherabbit.RayyanTheRabbit" />
+	
+	<window width="800" height="600" />
+	<window fps="30" />
+	
+	<source path="Source" />
+	<source path="test" />
+	
+	<haxelib name="nme" />	
+	<haxelib name="actuate" />
+	<haxelib name="munit" />
+
+	<assets path="assets/common" rename="assets/common" include="*" exclude="nme.svg"/>
+	<assets path="assets/medium" rename="assets" include="*"  />
+	
+	<icon name="assets/nme.svg" />
+	
+	<ndll name="std" />
+	<ndll name="regexp" />
+	<ndll name="zlib" />
+	<ndll name="nme" haxelib="nme" />
+	
+</project>
