@@ -1,4 +1,4 @@
-package com.deengames.rayyantherabbit.screen;
+package com.deengames.gamebook.screen;
 import com.blastcube.controls.ThreeScaleButton;
 import com.blastcube.core.Screen;
 import nme.display.Bitmap;
@@ -15,17 +15,13 @@ class TitleScreen extends Screen
 	// Can't use new; buttons need access to the current screen, which isn't set yet.
 	public override function init() 
 	{		
-		var background:Sprite = this.addImage("assets/common/starfield.jpg", "background");
+		var background:Sprite = this.addImage("assets/titlescreen.png", "background");
 		this.fitToScreen(background);
-		
-		var titleText:Sprite = this.addImage("assets/legend-of-hamza.png", "title text");
-		titleText.x = (Lib.current.stage.stageWidth - titleText.width) / 2;
-		titleText.y = (Lib.current.stage.stageHeight - titleText.height) * 0.2;
 		
 		var newGame:ThreeScaleButton = this.addButton("New Game");
 		newGame.name = "newgame";
-		newGame.setX(Lib.current.stage.stageWidth / 3);
-		newGame.setY(titleText.y + titleText.height + newGame.getHeight());
+		newGame.setX((Lib.current.stage.stageWidth - newGame.width) / 2);
+		newGame.setY(0.75 * Lib.current.stage.stageHeight);
 		
 		newGame.setClickHandler(function(event) {
 			

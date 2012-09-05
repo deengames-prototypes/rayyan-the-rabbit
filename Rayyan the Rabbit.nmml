@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="Legend of Hamza" package="com.deengames.rayyantherabbit" version="1.0.0" company="Deen Games" />
-	<app path="Export" file="RayyanTheRabbit" main="com.deengames.rayyantherabbit.RayyanTheRabbit" />
+	<meta title="Rayyan the Rabbit" package="com.deengames.rayyantherabbit" version="1.0.0" company="Deen Games" />
+	<app path="Export" file="GameBookMain" main="com.deengames.gamebook.GameBookMain" />
 	
 	<window width="800" height="600" />
 	<window fps="30" />
