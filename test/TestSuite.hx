@@ -6,7 +6,7 @@ import com.blastcube.core.GameTest;
 import com.blastcube.core.ScreenTest;
 import com.blastcube.extensions.StringExtensionsTest;
 import com.blastcube.extensions.TextFieldExtensionsTest;
-import com.deengames.rayyantherabbit.screen.TitleScreenTest;
+import com.deengames.gamebook.screen.TitleScreenTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -26,6 +26,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(com.blastcube.core.ScreenTest);
 		add(com.blastcube.extensions.StringExtensionsTest);
 		add(com.blastcube.extensions.TextFieldExtensionsTest);
-		add(com.deengames.rayyantherabbit.screen.TitleScreenTest);
+		add(com.deengames.gamebook.screen.TitleScreenTest);
 	}
 }
