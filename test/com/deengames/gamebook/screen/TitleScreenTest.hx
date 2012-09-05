@@ -1,4 +1,4 @@
-package com.deengames.rayyantherabbit.screen;
+package com.deengames.gamebook.screen;
 
 import com.blastcube.controls.ThreeScaleButton;
 import com.blastcube.core.Game;
@@ -27,16 +27,6 @@ class TitleScreenTest
 		
 		var background:Sprite = cast(screen.getChildByName("background"), Sprite);
 		Assert.isNotNull(background);	
-	}
-	
-	@Test
-	public function initAddsTitleTextImage() {
-		var screen:TitleScreen = new TitleScreen();
-		Game.showScreen(screen);
-		screen.init();
-		
-		var title:Sprite = cast(screen.getChildByName("title text"), Sprite);
-		Assert.isNotNull(title);	
 	}
 	
 	@Test
