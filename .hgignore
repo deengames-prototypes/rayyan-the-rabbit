@@ -3,3 +3,4 @@ Export/*
 build/*
 report/*
 .mcover/*
+.DS_Store
