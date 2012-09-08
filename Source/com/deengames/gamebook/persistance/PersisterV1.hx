@@ -16,7 +16,9 @@ class PersisterV1
 	}
 
 	public function loadProject(fileName:String) : Project {
-		if (!fileName.startsWith(
+		if (!fileName.startsWith("/assets")) {
+			fileName = "/assets/" + fileName;
+		}
 	}
 	
 }
