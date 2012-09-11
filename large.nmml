@@ -14,8 +14,8 @@
 	<haxelib name="actuate" />
 	<haxelib name="munit" />
 
-	<assets path="assets/large" rename="assets" include="*" exclude="nme.svg" />
-	<assets path="assets/common" rename="assets/common" include="*" exclude="nme.svg"/>
+	<assets path="assets/common" rename="assets" include="*" />
+	<assets path="assets/medium" rename="assets" include="*" />
 	
 	<icon name="assets/nme.svg" />
 	

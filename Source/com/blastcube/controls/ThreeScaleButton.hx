@@ -37,13 +37,13 @@ class ThreeScaleButton extends Sprite
 		// the images they added -- not images we use internally. So add stuff directly.
 		
 		this.leftImage = new Sprite();
-		this.leftImage.addChild(createBitmap("assets/common/controls/button-click-left.png", "Clicked"));
-		this.leftImage.addChild(createBitmap("assets/common/controls/button-left.png", "Normal"));
+		this.leftImage.addChild(createBitmap("assets/controls/button-click-left.png", "Clicked"));
+		this.leftImage.addChild(createBitmap("assets/controls/button-left.png", "Normal"));
 		this.leftImage.name = "left";
 		
 		this.centerImage = new Sprite();
-		this.centerImage.addChild(createBitmap("assets/common/controls/button-click-middle.png", "Clicked"));
-		this.centerImage.addChild(createBitmap("assets/common/controls/button-middle.png", "Normal"));
+		this.centerImage.addChild(createBitmap("assets/controls/button-click-middle.png", "Clicked"));
+		this.centerImage.addChild(createBitmap("assets/controls/button-middle.png", "Normal"));
 		this.centerImage.name = "center";
 		
 		this.textField = new TextField();
@@ -55,8 +55,8 @@ class ThreeScaleButton extends Sprite
 		this.textField.setFont("Arial");
 		
 		this.rightImage = new Sprite();
-		this.rightImage.addChild(createBitmap("assets/common/controls/button-click-right.png", "Clicked"));
-		this.rightImage.addChild(createBitmap("assets/common/controls/button-right.png", "Normal"));
+		this.rightImage.addChild(createBitmap("assets/controls/button-click-right.png", "Clicked"));
+		this.rightImage.addChild(createBitmap("assets/controls/button-right.png", "Normal"));
 		this.rightImage.name = "right";
 		
 		this.addChild(this.leftImage);
