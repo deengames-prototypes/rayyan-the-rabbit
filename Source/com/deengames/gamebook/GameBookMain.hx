@@ -4,6 +4,7 @@ import com.blastcube.controls.ThreeScaleButtonTest;
 import com.blastcube.core.Game;
 import com.blastcube.core.Screen;
 import com.deengames.gamebook.screen.TitleScreen;
+import com.deengames.gamebook.screen.ValidateProjectScreen;
 
 /**
  * @author ashes999
