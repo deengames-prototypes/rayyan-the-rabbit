@@ -12,7 +12,7 @@ import com.deengames.gamebook.screen.ValidateProjectScreen;
 class GameBookMain extends Game {
 	
 	private var currentScreen:Screen;
-	public static var projectFileName = "Rayyan the Rabbit.xml";
+	public static var projectFileName = "RayyanTheRabbit.xml";
 	
 	public function new () {
 		super();
@@ -20,8 +20,8 @@ class GameBookMain extends Game {
 	
 	// Entry point
 	public static function main () {
-		Game.showScreen(new ValidateProjectScreen(projectFileName));
-		//Game.showScreen(new TitleScreen());
+		//Game.showScreen(new ValidateProjectScreen(projectFileName));
+		Game.showScreen(new TitleScreen());
 		
 		// Run some tests instead -- use to debug tests
 		//var test = new ThreeScaleButtonTest();

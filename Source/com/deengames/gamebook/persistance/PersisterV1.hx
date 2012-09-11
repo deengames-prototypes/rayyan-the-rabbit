@@ -15,31 +15,22 @@ class PersisterV1
 	{
 		
 	}
-
-	public function getPathRelativeToAssetsDir(fileName:String) : String
+	
+	public function loadProject(fileName:String) : ProjectValidation
 	{
-		if (!fileName.startsWith("/assets/")) {
-			fileName = "/assets/" + fileName;
-		} else if (!fileName.startsWith("/")) {
-			fileName = "/assets/" + fileName;
-		} else {
-			fileName = "/assets" + fileName;
+		var fullPath = fileName;
+		if (!fullPath.startsWith("assets/")) {
+			fullPath = "assets/" + fileName;
 		}
 		
-		return fileName;
-	}
-	
-	public function loadProject(fileName:String) : Project
-	{
-		//var fullPath = getPathRelativeToAssetsDir(fileName);
 		var content = Assets.getText(fileName);
-		if (content == "") {
+		if (content == null || content == "") {
 			throw "No content?!";
 		} else {
 			throw "Got it: " + content;
 		}
 		
-		return new Project("Unreachable code");
+		return new ProjectValidation(new Project("HI"), "Unreachable code");
 	}
 	
 }
