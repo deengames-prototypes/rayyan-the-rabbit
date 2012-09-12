@@ -16,6 +16,7 @@
 
 	<assets path="assets/common" rename="assets" include="*" />
 	<assets path="assets/medium" rename="assets" include="*" />
+	<assets path="assets" rename="assets" exclude="common|small|medium|large" />
 	
 	<icon name="assets/nme.svg" />
 	

@@ -13,7 +13,7 @@ class PersistanceMediator
 	{
 	}
 	
-	public function loadProject(fileName:String) : ProjectValidation {
+	public function loadProject(fileName:String) : Project {
 		return new PersisterV1().loadProject(fileName);
 	}
 }
