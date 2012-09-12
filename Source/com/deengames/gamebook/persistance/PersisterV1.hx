@@ -1,5 +1,6 @@
 package com.deengames.gamebook.persistance;
 using com.blastcube.extensions.StringExtensions;
+import com.blastcube.core.exception.Exception;
 import com.deengames.gamebook.model.Project;
 import com.deengames.gamebook.model.Scene;
 import haxe.xml.Fast;
@@ -34,7 +35,7 @@ class PersisterV1
 		
 		var content = Assets.getText(fullPath);
 		if (content == null || content == "") {
-			throw "Can't read project file: " + fullPath;
+			throw new Exception("Can't read project file: " + fullPath);
 		} else {		
 			var fast:Fast = new Fast(Xml.parse(content));
 			
