@@ -2,7 +2,6 @@ package com.deengames.gamebook.screen;
 import com.blastcube.core.Screen;
 import com.deengames.gamebook.model.Project;
 import com.deengames.gamebook.persistance.PersistanceMediator;
-import com.deengames.gamebook.persistance.ProjectValidation;
 
 /**
  * ...
@@ -15,11 +14,8 @@ class ValidateProjectScreen extends Screen
 	{	
 		super();
 		
-		var project:ProjectValidation = new PersistanceMediator().loadProject(fileName);
-		if (project.isValid()) {
-			// Show first screen; pass entire project to the StoryScreen?
-		} else {
-			throw "Invalid project: " + project.getValidationFailureMessages();
-		}
+		// Any validation failures will throw an exception here
+		var project:Project = new PersistanceMediator().loadProject(fileName);
+		// Show first screen; pass entire project to the StoryScreen?
 	}
 }

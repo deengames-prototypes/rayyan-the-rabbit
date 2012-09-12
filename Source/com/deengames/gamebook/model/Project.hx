@@ -17,4 +17,8 @@ class Project
 		this.scenes = new List<Scene>();
 	}
 	
+	public function addScene(s:Scene) {
+		this.scenes.add(s);
+	}
+	
 }

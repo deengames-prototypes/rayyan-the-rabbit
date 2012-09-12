@@ -20,8 +20,8 @@ class GameBookMain extends Game {
 	
 	// Entry point
 	public static function main () {
-		//Game.showScreen(new ValidateProjectScreen(projectFileName));
-		Game.showScreen(new TitleScreen());
+		Game.showScreen(new ValidateProjectScreen(projectFileName));
+		//Game.showScreen(new TitleScreen());
 		
 		// Run some tests instead -- use to debug tests
 		//var test = new ThreeScaleButtonTest();
