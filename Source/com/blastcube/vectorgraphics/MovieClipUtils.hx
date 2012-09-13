@@ -4,6 +4,7 @@ package com.blastcube.vectorgraphics;
 import com.blastcube.core.exception.Exception;
 import format.SWF;
 import format.swf.MovieClip;
+import nme.Assets;
 import nme.display.Bitmap;
 import nme.display.BitmapData;
 import nme.display.IBitmapDrawable;
@@ -20,8 +21,10 @@ import nme.geom.Rectangle;
 class MovieclipUtils 
 {
 
-	public static function getScaledBitmap(symbol : SWF, symbolName:String, scale:Float=1, pixelSnap:Bool=true) : Sprite
+	public static function getScaledBitmap(swfName:String, symbolName:String, scale:Float=1, pixelSnap:Bool=true) : Sprite
 	{
+		var symbol:SWF = new SWF(Assets.getBytes(swfName));
+		
 		var toReturn:Sprite = new Sprite();
 		//scale *= Consts.GAME_SCALE;
 		
@@ -39,7 +42,6 @@ class MovieclipUtils
 		var bmd:BitmapData = new BitmapData(Std.int(idealW), Std.int(idealH), true, 0);					
 		
 		m.translate(bmd.width - idealW, bmd.height - idealH);			
-		//var sourceBitmapData:BitmapData = symbol.getBitmapData("Square");
 		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
 		
 		if (sourceBitmapData == null) {
