@@ -9,7 +9,7 @@ import nme.display.Sprite;
  * ...
  * @author Mike Cann
  */
-
+/////////// consider deleting this.
 class BitmapCache 
 {
 	public static var cache : Array<BitCacheVO> = [];
@@ -18,7 +18,8 @@ class BitmapCache
 	{
 		var s : Sprite = null;
 		for (vo in cache) if (vo.clazz == clazz) return vo.bitmap;
-		s = MovieclipUtils.getScaledBitmap(Type.createInstance(clazz,[]));
+		s = MovieclipUtils.getScaledBitmap(Type.createInstance(clazz, []), "");
+		
 		var newVO = new BitCacheVO();
 		newVO.clazz = clazz;
 		var bmd =  cast(s.getChildAt(0), Bitmap).bitmapData;
