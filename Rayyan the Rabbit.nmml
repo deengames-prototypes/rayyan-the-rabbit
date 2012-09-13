@@ -10,6 +10,7 @@
 	<source path="Source" />
 	<source path="test" />
 	
+	<haxelib name="swf" />	
 	<haxelib name="nme" />	
 	<haxelib name="actuate" />
 	<haxelib name="munit" />

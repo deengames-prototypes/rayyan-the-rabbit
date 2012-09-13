@@ -1,6 +1,7 @@
 package com.deengames.gamebook.screen;
 import com.blastcube.controls.ThreeScaleButton;
 import com.blastcube.core.Screen;
+import com.blastcube.vectorgraphics.BitmapCache;
 import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.Lib;
