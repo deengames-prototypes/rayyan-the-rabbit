@@ -30,6 +30,7 @@
   </build>
   <!-- haxelib libraries -->
   <haxelib>
+    <library name="swf" />
     <library name="nme" />
     <library name="actuate" />
     <library name="munit" />

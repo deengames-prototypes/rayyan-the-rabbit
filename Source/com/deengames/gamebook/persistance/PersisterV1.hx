@@ -37,18 +37,23 @@ class PersisterV1
 		if (content == null || content == "") {
 			throw new Exception("Can't read project file: " + fullPath);
 		} else {		
-			var fast:Fast = new Fast(Xml.parse(content));
-			
-			// Extract details from XML. No XPath here...
-			var projectName:String = fast.node.project.att.name;
-			var toReturn:Project = new Project(projectName);
-			
-			for (scene in fast.node.project.nodes.scene) {
-				toReturn.addScene(new Scene(scene.att.name, scene.att.background));
-			}
-			
-			return toReturn;
+			return deserializeProject(content);
 		}
+	}
+	
+	public function deserializeProject(content:String) : Project
+	{
+		var fast:Fast = new Fast(Xml.parse(content));
+			
+		// Extract details from XML. No XPath here...
+		var projectName:String = fast.node.project.att.name;
+		var toReturn:Project = new Project(projectName);
+		
+		for (scene in fast.node.project.nodes.scene) {
+			toReturn.addScene(new Scene(scene.att.name, scene.att.background));
+		}
+		
+		return toReturn;
 	}
 	
 }
