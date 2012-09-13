@@ -3,7 +3,6 @@ import com.blastcube.core.Screen;
 import com.blastcube.vectorgraphics.MovieclipUtils;
 import com.deengames.gamebook.model.Project;
 import com.deengames.gamebook.persistance.PersistanceMediator;
-import com.deengames.gamebook.Square;
 import format.SWF;
 import format.swf.MovieClip;
 import nme.Assets;
@@ -26,9 +25,8 @@ class ValidateProjectScreen extends Screen
 		var project:Project = new PersistanceMediator().loadProject(fileName);
 		// Show first screen; pass entire project to the StoryScreen?
 		
-		//Lib.current.stage.addChild(new Bitmap(BitmapCache.get(Square)));
-		var swf:SWF = new SWF(Assets.getBytes("assets/test.swf"));		
-		var square:Sprite = MovieclipUtils.getScaledBitmap(swf, "Square", 2.5);
+		//Lib.current.stage.addChild(new Bitmap(BitmapCache.get(Square)));		
+		var square:Sprite = MovieclipUtils.getScaledBitmap("assets/test.swf", "Square", 2.5);
 		//var square:MovieClip = swf.createMovieClip("Squarez");
 		Lib.current.stage.addChild(square);
 		
