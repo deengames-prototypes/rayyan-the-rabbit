@@ -1,7 +1,7 @@
 package com.deengames.gamebook.screen;
 import com.blastcube.controls.ThreeScaleButton;
 import com.blastcube.core.Screen;
-import com.blastcube.vectorgraphics.BitmapCache;
+import com.blastcube.vectorgraphics.Resize;
 import nme.display.Bitmap;
 import nme.display.Sprite;
 import nme.Lib;
@@ -12,12 +12,14 @@ import nme.Lib;
  */
 
 class TitleScreen extends Screen
-{
+{	
 	// Can't use new; buttons need access to the current screen, which isn't set yet.
-	public override function init() 
+	public function new(swfName:String="assets/swf/titlescreen.swf", symbolName:String="titlescreen") 
 	{		
-		var background:Sprite = this.addImage("assets/titlescreen.png", "background");
-		this.fitToScreen(background);
+		super();
+		var background:Sprite = addRasterizedVector(swfName, symbolName, Resize.AtLeast, this.stageWidth, this.stageHeight);
+		Lib.current.stage.addChild(background);
+		//this.fitToScreen(background);
 		
 		var newGame:ThreeScaleButton = this.addButton("New Game");
 		newGame.name = "newgame";

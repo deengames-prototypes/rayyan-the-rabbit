@@ -4,6 +4,7 @@
 -lib hamcrest
 -lib nme
 -lib mcover
+-lib swf
 -cp Source
 -debug
 

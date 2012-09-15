@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="Rayyan the Rabbit.nmml" />
     <movie fps="30" />
-    <movie width="800" />
-    <movie height="600" />
+    <movie width="600" />
+    <movie height="800" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
@@ -26,7 +26,7 @@
     <option flashStrict="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="False" />
-    <option additional="-swf-version 10" />
+    <option additional="-swf-version 10.1" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

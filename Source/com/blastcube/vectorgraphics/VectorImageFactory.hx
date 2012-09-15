@@ -15,22 +15,38 @@ import nme.geom.Rectangle;
 
 /**
  * ...
- * @author Mike Cann
+ * Forked from Mike Cann's "MovieclipUtils" class (Mr. Nibbles Week 3 code)
  */
 
-class MovieclipUtils 
+class VectorImageFactory 
 {
 
-	public static function getScaledBitmap(swfName:String, symbolName:String, scale:Float=1, pixelSnap:Bool=true) : Sprite
+	public static function getRasterizedImage(swfName:String, symbolName:String, resize:Resize, width:Int = 0, height:Int = 0) : Sprite
 	{
-		var symbol:SWF = new SWF(Assets.getBytes(swfName));
-		
+		// Lets imagine we have a 450x600 symbol in an 800x600 stage in Flash.
+		// symbol is [800x600]
+		// sourceBitmapData is [450x600]
+		var symbol:SWF = new SWF(Assets.getBytes(swfName)); 
+		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
+
 		var toReturn:Sprite = new Sprite();
-		//scale *= Consts.GAME_SCALE;
 		
 		// Work out the bounds of this mc
-		var r:Rectangle = new Rectangle(0, 0, symbol.width, symbol.height);
+		var r:Rectangle = new Rectangle(0, 0, sourceBitmapData.width, sourceBitmapData.height);
+		
+		var scale:Float = 1;
+		
+		if (!Type.enumEq(resize, NoResize) && width > 0 && height > 0) {
+			var scaleW:Float = width / sourceBitmapData.width;
+			var scaleH:Float = height / sourceBitmapData.height;
 			
+			if (Type.enumEq(resize, Resize.AtLeast)) {
+				scale = Math.max(scaleW, scaleH);
+			} else if (Type.enumEq(resize, Resize.AtMost)) {
+				scale = Math.min(scaleW, scaleH);
+			}
+		}
+		
 		// Make a matrix for the draw
 		var m:Matrix = new Matrix();
 		m.scale(scale, scale);
@@ -42,7 +58,6 @@ class MovieclipUtils
 		var bmd:BitmapData = new BitmapData(Std.int(idealW), Std.int(idealH), true, 0);					
 		
 		m.translate(bmd.width - idealW, bmd.height - idealH);			
-		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
 		
 		if (sourceBitmapData == null) {
 			throw new Exception("Can't get symbol: " + symbolName);
@@ -50,7 +65,7 @@ class MovieclipUtils
 		
 		bmd.draw(sourceBitmapData , m);
 		
-		var b:Bitmap = new Bitmap(bmd, pixelSnap ? PixelSnapping.AUTO : PixelSnapping.NEVER);
+		var b:Bitmap = new Bitmap(bmd, PixelSnapping.AUTO);
 		b.x = -m.tx;
 		b.y = -m.ty;
 				
