@@ -15,19 +15,34 @@ import nme.geom.Rectangle;
 
 /**
  * ...
- * Forked from Mike Cann's "MovieclipUtils" class (Mr. Nibbles Week 3 code)
+ * Inspired by Mike Cann's "MovieclipUtils" class (Mr. Nibbles Week 3 code)
  */
 
 class VectorImageFactory 
 {
 
+	private static var cachedRasterizedImages:Hash<BitmapData> = new Hash<BitmapData>();
+	
+	/**
+	 * Loads an image from an SWF. Keeps a reference to that SWF for later.
+	 * @param	swfName the filename of the SWF in assets to load.
+	 * @param	symbolName the symbol name in the SWF to load.
+	 * @return a vector image (Sprite) instance of the symbol.
+	 */
+	public static function loadImage(swfName:String, symbolName:String) : Sprite
+	{
+		var symbol:SWF = new SWF(Assets.getBytes(swfName)); 
+		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
+		return sourceBitmapData;
+	}
+	
 	public static function getRasterizedImage(swfName:String, symbolName:String, resize:Resize, width:Int = 0, height:Int = 0) : Sprite
 	{
 		// Lets imagine we have a 450x600 symbol in an 800x600 stage in Flash.
 		// symbol is [800x600]
 		// sourceBitmapData is [450x600]
-		var symbol:SWF = new SWF(Assets.getBytes(swfName)); 
-		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
+		// We want to see the latter sizes, not the former!
+		var sourceBitmapData:Sprite = loadImage(swfName, symbolName);		
 
 		var toReturn:Sprite = new Sprite();
 		
@@ -47,23 +62,29 @@ class VectorImageFactory
 			}
 		}
 		
+		var bmd:BitmapData = getCachedBitmapData(swfName, symbolName, scale);
+		
+		var idealW:Float = (r.width * scale);
+		var idealH:Float = (r.height * scale);		
+		
+		if (bmd == null) {
+			// Cache miss. Create it.			
+			// Make the BMD and draw			
+			bmd = new BitmapData(Std.int(idealW), Std.int(idealH), true, 0);	
+			cache(swfName, symbolName, scale, bmd);
+		}
+			
 		// Make a matrix for the draw
 		var m:Matrix = new Matrix();
 		m.scale(scale, scale);
-		m.translate( Math.round(1 - r.x * scale), Math.round(1 - r.y * scale));				
-		
-		// Make the BMD and draw
-		var idealW:Float = (r.width * scale);
-		var idealH:Float = (r.height * scale);
-		var bmd:BitmapData = new BitmapData(Std.int(idealW), Std.int(idealH), true, 0);					
-		
+		m.translate( Math.round(1 - r.x * scale), Math.round(1 - r.y * scale));			
 		m.translate(bmd.width - idealW, bmd.height - idealH);			
 		
 		if (sourceBitmapData == null) {
-			throw new Exception("Can't get symbol: " + symbolName);
+			throw new Exception("Can't get symbol: " + symbolName + " from " + swfName);
 		}
 		
-		bmd.draw(sourceBitmapData , m);
+		bmd.draw(sourceBitmapData, m);
 		
 		var b:Bitmap = new Bitmap(bmd, PixelSnapping.AUTO);
 		b.x = -m.tx;
@@ -72,5 +93,28 @@ class VectorImageFactory
 		toReturn.addChild(b);
 		
 		return toReturn;		
+	}
+	
+	private static function getCachedBitmapData(swfName:String, symbolName:String, scale:Float) : BitmapData
+	{
+		var cacheName:String = getCacheName(swfName, symbolName, scale);
+		
+		if (cachedRasterizedImages.exists(cacheName)) {
+			return cachedRasterizedImages.get(cacheName);
+		} else {
+			return null;
+		}		
+	}
+	
+	private static function cache(swfName:String, symbolName:String, scale:Float, data:BitmapData) : Void
+	{
+		var cacheName:String = getCacheName(swfName, symbolName, scale);
+		
+		cachedRasterizedImages.set(cacheName, data); // Overwrites if was existing, which is fine
+	}
+	
+	private static function getCacheName(swfName:String, symbolName:String, scale:Float) : String
+	{
+		return swfName + "->" + symbolName + " x" + scale;
 	}
 }
