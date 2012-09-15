@@ -22,9 +22,10 @@ class VectorImageFactory
 {
 
 	private static var cachedRasterizedImages:Hash<BitmapData> = new Hash<BitmapData>();
+	public static var isCachingEnabled:Bool = false;
 	
 	/**
-	 * Loads an image from an SWF. Keeps a reference to that SWF for later.
+	 * Loads an image from an SWF. 
 	 * @param	swfName the filename of the SWF in assets to load.
 	 * @param	symbolName the symbol name in the SWF to load.
 	 * @return a vector image (Sprite) instance of the symbol.
@@ -62,7 +63,10 @@ class VectorImageFactory
 			}
 		}
 		
-		var bmd:BitmapData = getCachedBitmapData(swfName, symbolName, scale);
+		var bmd:BitmapData = null;
+		if (isCachingEnabled) {
+			bmd = getCachedBitmapData(swfName, symbolName, scale);
+		}
 		
 		var idealW:Float = (r.width * scale);
 		var idealH:Float = (r.height * scale);		
@@ -71,7 +75,9 @@ class VectorImageFactory
 			// Cache miss. Create it.			
 			// Make the BMD and draw			
 			bmd = new BitmapData(Std.int(idealW), Std.int(idealH), true, 0);	
-			cache(swfName, symbolName, scale, bmd);
+			if (isCachingEnabled) {
+				cache(swfName, symbolName, scale, bmd);
+			}
 		}
 			
 		// Make a matrix for the draw
