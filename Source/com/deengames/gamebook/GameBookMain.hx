@@ -3,8 +3,8 @@ package com.deengames.gamebook;
 import com.blastcube.controls.ThreeScaleButtonTest;
 import com.blastcube.core.Game;
 import com.blastcube.core.Screen;
+import com.deengames.gamebook.screen.ShowScenesScreen;
 import com.deengames.gamebook.screen.TitleScreen;
-import com.deengames.gamebook.screen.ValidateProjectScreen;
 
 /**
  * @author ashes999
@@ -20,8 +20,8 @@ class GameBookMain extends Game {
 	
 	// Entry point
 	public static function main () {
-		Game.showScreen(new ValidateProjectScreen(projectFileName));
-		//Game.showScreen(new TitleScreen());
+		//Game.showScreen(new ShowScenesScreen(projectFileName));
+		Game.showScreen(new TitleScreen("assets/swf/titlescreen.swf", "titlescreen"));
 		
 		// Run some tests instead -- use to debug tests
 		//var test = new ThreeScaleButtonTest();
