@@ -9,6 +9,7 @@ import nme.display.Sprite;
 import nme.events.Event;
 import nme.events.MouseEvent;
 import nme.Lib;
+import nme.text.TextField;
 
 /**
  * ...
@@ -17,6 +18,8 @@ import nme.Lib;
 
 class TitleScreen extends Screen
 {	
+	
+	
 	// Can't use new; buttons need access to the current screen, which isn't set yet.
 	public function new(swfName:String="assets/swf/titlescreen.swf", symbolName:String="titlescreen") 
 	{		

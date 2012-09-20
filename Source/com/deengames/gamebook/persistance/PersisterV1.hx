@@ -50,7 +50,7 @@ class PersisterV1
 		var toReturn:Project = new Project(projectName);
 		
 		for (scene in fast.node.project.nodes.scene) {
-			toReturn.addScene(new Scene(scene.att.name, scene.att.background));
+			toReturn.addScene(new Scene(scene.att.name, scene.att.background, scene.att.text));
 		}
 		
 		return toReturn;

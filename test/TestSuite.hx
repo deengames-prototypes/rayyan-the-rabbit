@@ -6,7 +6,6 @@ import com.blastcube.core.GameTest;
 import com.blastcube.core.ScreenTest;
 import com.blastcube.extensions.StringExtensionsTest;
 import com.blastcube.extensions.TextFieldExtensionsTest;
-import com.blastcube.vectorgraphics.VectorImageFactoryTest;
 import com.deengames.gamebook.model.ProjectTest;
 import com.deengames.gamebook.persistance.PersisterV1Test;
 import com.deengames.gamebook.screen.ShowScenesScreenTest;
@@ -31,7 +30,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(com.blastcube.core.ScreenTest);
 		add(com.blastcube.extensions.StringExtensionsTest);
 		add(com.blastcube.extensions.TextFieldExtensionsTest);
-		add(com.blastcube.vectorgraphics.VectorImageFactoryTest);
 		add(com.deengames.gamebook.model.ProjectTest);
 		add(com.deengames.gamebook.persistance.PersisterV1Test);
 		add(com.deengames.gamebook.screen.ShowScenesScreenTest);

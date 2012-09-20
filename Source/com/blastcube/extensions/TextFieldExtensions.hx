@@ -16,4 +16,15 @@ class TextFieldExtensions
 		target.defaultTextFormat = new TextFormat(fontName);
 		target.text = target.text; // allows us to change font even after setting text
 	}
+	
+	public static function setFontSize(target:TextField, fontSize:Int) : Void {
+		target.defaultTextFormat = new TextFormat(target.getTextFormat().font, fontSize);
+		target.text = target.text; // allows us to change font even after setting text
+	}
+	
+	public static function setFontColour(target:TextField, colour:Int) : Void {
+		var currentFormat:TextFormat = target.getTextFormat();
+		target.defaultTextFormat = new TextFormat(currentFormat.font, currentFormat.size, colour);
+		target.text = target.text; // allows us to change font even after setting text
+	}
 }

@@ -39,5 +39,4 @@ class Project
 	{
 		return this.scenes.length;
 	}
-
 }
