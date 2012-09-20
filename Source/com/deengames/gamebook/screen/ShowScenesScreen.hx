@@ -53,6 +53,8 @@ class ShowScenesScreen extends Screen
 		
 		// Any validation failures will throw an exception here
 		this.project = new PersistanceMediator().loadProject(fileName);
+		validateProject(this.project);
+		
 		this.currentScene = project.getScene(this.currentSceneIndex);
 		
 		// Show first screen
@@ -64,6 +66,20 @@ class ShowScenesScreen extends Screen
 		this.addTextWindow(currentScene.text);
 		this.addPlayAudioButton();
 		this.playCurrentSceneAudio();
+	}
+	
+	private function validateProject(project:Project)
+	{
+		for (i in 0 ... project.sceneCount) {
+			var scene:Scene = project.getScene(i);
+			if (Assets.getBytes(scene.background) == null) {
+				throw new Exception("Can't find background " + scene.background + " for scene " + scene.name);
+			}
+			var audioFileName:String = "assets/audio/scene" + (i + 1) + ".mp3";
+			if (Assets.getSound(audioFileName) == null) {
+				throw new Exception("Can't find audio " + audioFileName + " for scene " + scene.name);
+			}
+		}
 	}
 	
 	private function addTextWindow(text:String) : Void
