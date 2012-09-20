@@ -1,4 +1,4 @@
 <project fileVersion="1" name="Rayyan the Rabbit">
 	<scene name="Scene 1" background="assets/swf/scene1.swf" text="'Tawfique the Turtle is sick,' mom says. 'Be a dear, Rayyan, and fetch some seaweed from the coast for me. Oh, and don't go alone -- Croc might be around.' 'Okay mom!' Rayyan yells, as he darts out the den." />
-	<scene name="Scene 2" background="" text="" />
+	<scene name="Scene 2" background="assets/swf/scene2.swf" text="..." />
 </project>

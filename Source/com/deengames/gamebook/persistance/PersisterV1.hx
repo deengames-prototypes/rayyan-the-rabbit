@@ -50,7 +50,19 @@ class PersisterV1
 		var toReturn:Project = new Project(projectName);
 		
 		for (scene in fast.node.project.nodes.scene) {
-			toReturn.addScene(new Scene(scene.att.name, scene.att.background, scene.att.text));
+			var name:String = scene.att.name;
+			var bg:String = scene.att.background;
+			var text:String = scene.att.text;
+			
+			if (bg == "") {
+				throw new Exception("Scene " + name + " is missing a background.");
+			}
+			
+			if (text == "") {
+				throw new Exception("Scene " + name + " is missing text.");
+			}
+			
+			toReturn.addScene(new Scene(name, bg, text));
 		}
 		
 		return toReturn;
