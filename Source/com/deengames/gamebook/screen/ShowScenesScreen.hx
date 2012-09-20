@@ -10,7 +10,11 @@ import format.swf.MovieClip;
 import nme.Assets;
 import nme.display.Bitmap;
 import nme.display.Sprite;
+import nme.events.Event;
+import nme.events.MouseEvent;
 import nme.Lib;
+import nme.media.Sound;
+import nme.media.SoundChannel;
 import nme.text.TextField;
 
 using com.blastcube.extensions.TextFieldExtensions;
@@ -22,15 +26,24 @@ using com.blastcube.extensions.TextFieldExtensions;
 
 class ShowScenesScreen extends Screen
 {
-	private var textFieldBorder:Int = 8;
-	private var textFieldToolHeaderHeight:Int = 32;
+	private var AUDIO_BUTTON_OFFSET:Int = 4;
+	private var TEXT_FIELD_BORDER_SIZE:Int = 8;
+	private var TEXT_FIELD_TOOLBAR_ORIGINAL_HEIGHT:Int = 32;
+	private var TEXT_FIELD_TOOLBAR_HEIGHT:Int;
 	
+	// Current project and scene
 	private var project:Project;
 	private var currentScene:Scene;
 	private var currentSceneIndex:Int;
+	
+	// Background and text field and window for displaying text
 	private var background:Sprite;
 	private var textField:TextField;
 	private var window:Sprite;
+	
+	// Control audio playback
+	private var sound:Sound;
+	private var soundChannel:SoundChannel;
 	
 	public function new(fileName:String) 
 	{	
@@ -49,22 +62,50 @@ class ShowScenesScreen extends Screen
 		window.y = this.stageHeight - window.height;
 		
 		this.addTextWindow(currentScene.text);
+		this.addPlayAudioButton();
+		this.playCurrentSceneAudio();
 	}
 	
-	private function addTextWindow(text:String)
+	private function addTextWindow(text:String) : Void
 	{
 		this.textField = this.addTextField(text);
-		this.textField.setFontSize(24);
+		//this.textField.setFontSize(24);
+		var fontSize:Int = Math.floor(this.window.height / 10);
+		this.textField.setFontSize(fontSize);
 		this.textField.setFontColour(0xFFFFFF);
 		
 		this.textField.multiline = true;
 		this.textField.wordWrap = true;
 		
-		this.textField.width = this.stageWidth - (2 * textFieldBorder);
-		this.textField.height = this.window.height - (2 * textFieldBorder);
+		this.textField.width = this.stageWidth - (2 * this.TEXT_FIELD_BORDER_SIZE);
+		this.textField.height = this.window.height - (2 * this.TEXT_FIELD_BORDER_SIZE);
 		
-		this.textField.x = textFieldBorder;
-		this.textField.y = this.stageHeight - this.window.height + (this.window.scaleY * textFieldToolHeaderHeight) + textFieldBorder;
+		this.TEXT_FIELD_TOOLBAR_HEIGHT = Math.floor(this.window.scaleY * TEXT_FIELD_TOOLBAR_ORIGINAL_HEIGHT);
 		
+		this.textField.x = this.TEXT_FIELD_BORDER_SIZE;
+		this.textField.y = this.stageHeight - this.window.height + this.TEXT_FIELD_TOOLBAR_HEIGHT + this.TEXT_FIELD_BORDER_SIZE;
+		
+	}
+	
+	private function addPlayAudioButton() : Void
+	{
+		var playButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "playAudioButton", Resize.AtMost, this.TEXT_FIELD_TOOLBAR_HEIGHT, this.TEXT_FIELD_TOOLBAR_HEIGHT);
+		playButton.x = this.width - playButton.width - TEXT_FIELD_BORDER_SIZE;
+		playButton.y = this.window.y + AUDIO_BUTTON_OFFSET;
+		playButton.addEventListener(MouseEvent.MOUSE_DOWN, restartAudio);
+	}
+	
+	private function playCurrentSceneAudio() : Void
+	{
+		this.sound = Assets.getSound("assets/audio/scene" + (currentSceneIndex + 1) + ".mp3");
+		this.soundChannel = sound.play();
+	}
+	
+	private function restartAudio(event:Event) : Void
+	{
+		if (this.soundChannel != null) {
+			this.soundChannel.stop();
+			this.soundChannel = this.sound.play();
+		}
 	}
 }

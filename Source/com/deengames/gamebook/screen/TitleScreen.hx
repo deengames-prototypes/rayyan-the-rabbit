@@ -37,7 +37,7 @@ class TitleScreen extends Screen
 		});
 		*/
 		
-		var startButton:Sprite = this.addRasterizedVector("assets/swf/startbutton.swf", "startButton", Resize.NoResize);
+		var startButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.NoResize);
 		startButton.x = (this.width - startButton.width) / 2;
 		startButton.y = this.height - startButton.height - 16;
 		startButton.addEventListener(MouseEvent.MOUSE_DOWN, clickStart);
