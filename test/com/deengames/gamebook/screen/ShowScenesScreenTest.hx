@@ -17,6 +17,7 @@ class ShowScenesScreenTest
 	
 	@Test
 	public function constructorThrowsExceptionIfProjectFileIsInvalid() {
+		
 		try {
 			var screen:ShowScenesScreen = new ShowScenesScreen("Invalid.xml");
 			Assert.fail("Never saw an exception");

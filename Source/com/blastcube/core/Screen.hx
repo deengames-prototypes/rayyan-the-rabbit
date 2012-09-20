@@ -4,6 +4,7 @@ import com.blastcube.vectorgraphics.Resize;
 import com.blastcube.vectorgraphics.VectorImageFactory;
 import nme.Assets;
 import nme.display.Bitmap;
+import nme.display.DisplayObject;
 import nme.display.Sprite;
 import nme.Lib;
 import nme.text.TextField;
@@ -41,10 +42,17 @@ class Screen extends Sprite
 	
 	public function dispose() : Void
 	{
-		
 		for (image in this.images) {
-			image.removeChild(image.getChildByName("Bitmap"));
-			this.removeChild(image);			
+			var bitmap:DisplayObject = image.getChildByName("Bitmap");
+			
+			// For non-vectorized, the data is wrapped in this lovely pastry shell.
+			if (bitmap != null) {
+				image.removeChild(bitmap);
+			}
+			
+			if (image.parent == this) {
+				this.removeChild(image);			
+			}
 		}
 		
 		this.images.clear();
@@ -90,7 +98,8 @@ class Screen extends Sprite
 	
 	public function addRasterizedVector(swfName:String, symbolName:String, resize:Resize, width:Int = 0, height:Int = 0) : Sprite
 	{
-		var toReturn:Sprite = VectorImageFactory.getRasterizedImage(swfName, symbolName, resize, width, height);
+		var toReturn:Sprite = VectorImageFactory.getRasterizedImage(swfName, symbolName, resize, width, height);		
+		this.images.add(toReturn);
 		this.addChild(toReturn);
 		return toReturn;
 	}

@@ -1,5 +1,7 @@
 package com.deengames.gamebook.screen;
+import com.blastcube.core.exception.Exception;
 import com.blastcube.core.Screen;
+import com.blastcube.vectorgraphics.Resize;
 import com.deengames.gamebook.model.Project;
 import com.deengames.gamebook.persistance.PersistanceMediator;
 import format.SWF;
@@ -22,12 +24,8 @@ class ShowScenesScreen extends Screen
 		
 		// Any validation failures will throw an exception here
 		var project:Project = new PersistanceMediator().loadProject(fileName);
-		// Show first screen; pass entire project to the StoryScreen?
 		
-		//var square:Sprite = MovieclipUtils.getScaledBitmap("assets/kitten.swf", "Kitten", 2.25);
-		//Lib.current.stage.addChild(square);
-		
-		//square.scaleX *= 2.5;
-		//square.scaleY *= 2.5;
+		// Show first screen
+		this.addRasterizedVector(project.getScene(0).background, "scene", Resize.AtMost, this.stageWidth, this.stageHeight);
 	}
 }
