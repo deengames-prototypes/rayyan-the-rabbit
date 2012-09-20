@@ -9,11 +9,13 @@ class Scene
 {
 
 	public var name(getName, null):String;
-	public var background(getBackground, null):String;
+	public var background(getBackground, null):String;	
+	public var text(getText, null) : String;
 	
-	public function new(name:String, background:String) 
+	public function new(name:String, background:String, text:String) 
 	{
 		this.name = name;
+		this.text = text;
 		this.background = background;
 	}
 	
@@ -27,4 +29,8 @@ class Scene
 		return this.background;
 	}
 	
+	private function getText() : String
+	{
+		return this.text;
+	}
 }
