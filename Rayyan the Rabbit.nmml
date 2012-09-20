@@ -4,7 +4,7 @@
 	<meta title="Rayyan the Rabbit" package="com.deengames.rayyantherabbit" version="1.0.0" company="Deen Games" />
 	<app path="Export" file="GameBookMain" main="com.deengames.gamebook.GameBookMain" />
 	
-	<window width="600" height="800" fps="30" />
+	<window width="450" height="600" fps="30" />
 	
 	<source path="Source" />
 	<source path="test" />

@@ -9,7 +9,7 @@ class Scene
 {
 
 	public var name(getName, null):String;
-	private var background:String;
+	public var background(getBackground, null):String;
 	
 	public function new(name:String, background:String) 
 	{
@@ -20,6 +20,11 @@ class Scene
 	private function getName() : String
 	{
 		return this.name;
+	}
+	
+	private function getBackground() : String
+	{
+		return this.background;
 	}
 	
 }

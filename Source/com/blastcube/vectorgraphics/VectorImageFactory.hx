@@ -32,8 +32,23 @@ class VectorImageFactory
 	 */
 	public static function loadImage(swfName:String, symbolName:String) : Sprite
 	{
-		var symbol:SWF = new SWF(Assets.getBytes(swfName)); 
+		var symbol:SWF;
+		try {
+			symbol = new SWF(Assets.getBytes(swfName)); 
+		} catch (exception:Dynamic) {
+			throw new Exception("Can't load SWF: " + swfName);
+		}
+		
+		if (symbol == null) {
+			throw new Exception("Can't load SWF: " + swfName);
+		}
+
 		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
+		
+		if (sourceBitmapData == null) {
+			throw new Exception("Can't get symbol " + symbolName + " from " + swfName);
+		}
+		
 		return sourceBitmapData;
 	}
 	
@@ -43,8 +58,7 @@ class VectorImageFactory
 		// symbol is [800x600]
 		// sourceBitmapData is [450x600]
 		// We want to see the latter sizes, not the former!
-		var sourceBitmapData:Sprite = loadImage(swfName, symbolName);		
-
+		var sourceBitmapData:Sprite = loadImage(swfName, symbolName);
 		var toReturn:Sprite = new Sprite();
 		
 		// Work out the bounds of this mc
@@ -84,15 +98,12 @@ class VectorImageFactory
 		var m:Matrix = new Matrix();
 		m.scale(scale, scale);
 		m.translate( Math.round(1 - r.x * scale), Math.round(1 - r.y * scale));			
-		m.translate(bmd.width - idealW, bmd.height - idealH);			
-		
-		if (sourceBitmapData == null) {
-			throw new Exception("Can't get symbol: " + symbolName + " from " + swfName);
-		}
+		m.translate(bmd.width - idealW, bmd.height - idealH);					
 		
 		bmd.draw(sourceBitmapData, m);
 		
 		var b:Bitmap = new Bitmap(bmd, PixelSnapping.AUTO);
+		b.name = "Bitmap";
 		b.x = -m.tx;
 		b.y = -m.ty;
 				
