@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="Rayyan the Rabbit.nmml" />
     <movie fps="30" />
-    <movie width="600" />
-    <movie height="800" />
+    <movie width="450" />
+    <movie height="600" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />

@@ -6,6 +6,8 @@ import com.blastcube.vectorgraphics.Resize;
 import com.deengames.gamebook.GameBookMain;
 import nme.display.Bitmap;
 import nme.display.Sprite;
+import nme.events.Event;
+import nme.events.MouseEvent;
 import nme.Lib;
 
 /**
@@ -19,10 +21,9 @@ class TitleScreen extends Screen
 	public function new(swfName:String="assets/swf/titlescreen.swf", symbolName:String="titlescreen") 
 	{		
 		super();
-		var background:Sprite = addRasterizedVector(swfName, symbolName, Resize.AtMost, this.stageWidth, this.stageHeight);
-		Lib.current.stage.addChild(background);
-		//this.fitToScreen(background);
-		
+		var background:Sprite = this.addRasterizedVector(swfName, symbolName, Resize.AtMost, this.stageWidth, this.stageHeight);
+
+		/*
 		var newGame:ThreeScaleButton = this.addButton("New Game");
 		newGame.name = "newgame";
 		newGame.setX((Lib.current.stage.stageWidth - newGame.width) / 2);
@@ -31,5 +32,15 @@ class TitleScreen extends Screen
 		newGame.setClickHandler(function(event) {
 			Game.showScreen(new ShowScenesScreen(GameBookMain.projectFileName));
 		});
+		*/
+		
+		var startButton:Sprite = this.addRasterizedVector("assets/swf/startbutton.swf", "startButton", Resize.NoResize);
+		startButton.x = (this.width - startButton.width) / 2;
+		startButton.y = this.height - startButton.height - 16;
+		startButton.addEventListener(MouseEvent.MOUSE_DOWN, clickStart);
+	}
+	
+	private function clickStart(event:Event) {
+		Game.showScreen(new ShowScenesScreen(GameBookMain.projectFileName));
 	}
 }
