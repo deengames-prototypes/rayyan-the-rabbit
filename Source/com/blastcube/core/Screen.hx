@@ -43,16 +43,7 @@ class Screen extends Sprite
 	public function dispose() : Void
 	{
 		for (image in this.images) {
-			var bitmap:DisplayObject = image.getChildByName("Bitmap");
-			
-			// For non-vectorized, the data is wrapped in this lovely pastry shell.
-			if (bitmap != null) {
-				image.removeChild(bitmap);
-			}
-			
-			if (image.parent == this) {
-				this.removeChild(image);			
-			}
+			this.removeImage(image);
 		}
 		
 		this.images.clear();
@@ -94,6 +85,20 @@ class Screen extends Sprite
 		this.images.add(toReturn);
 		this.addChild(toReturn);
 		return toReturn;
+	}
+	
+	public function removeImage(image:Sprite) : Void
+	{
+		var bitmap:DisplayObject = image.getChildByName("Bitmap");
+			
+		// For non-vectorized, the data is wrapped in this lovely pastry shell.
+		if (bitmap != null) {
+			image.removeChild(bitmap);
+		}
+		
+		if (image.parent == this) {
+			this.removeChild(image);			
+		}
 	}
 	
 	public function addRasterizedVector(swfName:String, symbolName:String, resize:Resize, width:Int = 0, height:Int = 0) : Sprite

@@ -14,7 +14,7 @@ class ProjectTest
 	
 	@Test
 	public function getSceneReturnsSceneByIndex() : Void {
-		var p:Project = new Project("Iteration Test");
+		var p:Project = new Project("Iteration Test", "N/A");
 		
 		for (i in 0 ... 3) {
 			p.addScene(new Scene("Scene " + i, "", ""));

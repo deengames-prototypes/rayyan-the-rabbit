@@ -47,7 +47,13 @@ class PersisterV1
 			
 		// Extract details from XML. No XPath here...
 		var projectName:String = fast.node.project.att.name;
-		var toReturn:Project = new Project(projectName);
+		var scenesFile:String = fast.node.project.att.scenesFile;
+		
+		if (scenesFile == null || scenesFile == "") {
+			throw new Exception("Invalid <project> tag: 'scenesFile' attribute is missing.");
+		}
+		
+		var toReturn:Project = new Project(projectName, scenesFile);
 		
 		for (scene in fast.node.project.nodes.scene) {
 			var name:String = scene.att.name;

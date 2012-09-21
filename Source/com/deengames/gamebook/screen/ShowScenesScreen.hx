@@ -2,6 +2,7 @@ package com.deengames.gamebook.screen;
 import com.blastcube.core.exception.Exception;
 import com.blastcube.core.Screen;
 import com.blastcube.vectorgraphics.Resize;
+import com.blastcube.vectorgraphics.VectorImageFactory;
 import com.deengames.gamebook.model.Project;
 import com.deengames.gamebook.model.Scene;
 import com.deengames.gamebook.persistance.PersistanceMediator;
@@ -49,32 +50,31 @@ class ShowScenesScreen extends Screen
 	{	
 		super();
 		
-		this.currentSceneIndex = 0;
-		
 		// Any validation failures will throw an exception here
 		this.project = new PersistanceMediator().loadProject(fileName);
 		validateProject(this.project);
-		
-		this.currentScene = project.getScene(this.currentSceneIndex);
-		
-		// Show first screen
-		this.background = this.addRasterizedVector(currentScene.background, "scene", Resize.AtMost, this.stageWidth, this.stageHeight);
+				
+		// Not used; instantiated here to guarantee correct Z-order. We replace it in showNextScene.
+		this.background = this.addRasterizedVector("assets/swf/dummy.swf", "dummy", Resize.AtMost, this.stageWidth, this.stageHeight);
 		
 		this.window = this.addRasterizedVector("assets/swf/window.swf", "window", Resize.AtMost, this.stageWidth, this.stageHeight);
 		window.y = this.stageHeight - window.height;
 		
-		this.addTextWindow(currentScene.text);
+		this.addTextWindow();
 		this.addPlayAudioButton();
-		this.playCurrentSceneAudio();
+		this.addNextSceneButton();		
+		
+		this.currentSceneIndex = -1;
+		this.showNextScene();
 	}
 	
 	private function validateProject(project:Project)
 	{
 		for (i in 0 ... project.sceneCount) {
 			var scene:Scene = project.getScene(i);
-			if (Assets.getBytes(scene.background) == null) {
-				throw new Exception("Can't find background " + scene.background + " for scene " + scene.name);
-			}
+			// Sneaky validation: preload
+			VectorImageFactory.loadImage(project.scenesFile, scene.background);
+			
 			var audioFileName:String = "assets/audio/scene" + (i + 1) + ".mp3";
 			if (Assets.getSound(audioFileName) == null) {
 				throw new Exception("Can't find audio " + audioFileName + " for scene " + scene.name);
@@ -82,10 +82,9 @@ class ShowScenesScreen extends Screen
 		}
 	}
 	
-	private function addTextWindow(text:String) : Void
+	private function addTextWindow() : Void
 	{
-		this.textField = this.addTextField(text);
-		//this.textField.setFontSize(24);
+		this.textField = this.addTextField("");
 		var fontSize:Int = Math.floor(this.window.height / 10);
 		this.textField.setFontSize(fontSize);
 		this.textField.setFontColour(0xFFFFFF);
@@ -100,7 +99,6 @@ class ShowScenesScreen extends Screen
 		
 		this.textField.x = this.TEXT_FIELD_BORDER_SIZE;
 		this.textField.y = this.stageHeight - this.window.height + this.TEXT_FIELD_TOOLBAR_HEIGHT + this.TEXT_FIELD_BORDER_SIZE;
-		
 	}
 	
 	private function addPlayAudioButton() : Void
@@ -108,7 +106,12 @@ class ShowScenesScreen extends Screen
 		var playButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "playAudioButton", Resize.AtMost, this.TEXT_FIELD_TOOLBAR_HEIGHT, this.TEXT_FIELD_TOOLBAR_HEIGHT);
 		playButton.x = this.width - playButton.width - TEXT_FIELD_BORDER_SIZE;
 		playButton.y = this.window.y + AUDIO_BUTTON_OFFSET;
-		playButton.addEventListener(MouseEvent.MOUSE_DOWN, restartAudio);
+		playButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
+			if (this.soundChannel != null) {
+				this.soundChannel.stop();
+				this.soundChannel = this.sound.play();
+			}
+		});
 	}
 	
 	private function playCurrentSceneAudio() : Void
@@ -117,11 +120,44 @@ class ShowScenesScreen extends Screen
 		this.soundChannel = sound.play();
 	}
 	
-	private function restartAudio(event:Event) : Void
+	private function addNextSceneButton() : Void
+	{
+		var nextButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.AtLeast, this.TEXT_FIELD_TOOLBAR_HEIGHT, this.TEXT_FIELD_TOOLBAR_HEIGHT);
+		nextButton.x = (this.width - nextButton.width);
+		nextButton.y = 0;
+		nextButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
+			if (this.currentSceneIndex == this.project.sceneCount - 1) {
+				showTheEndScene();
+			} else {
+				showNextScene();
+			}
+		});
+	}
+	
+	private function showTheEndScene() : Void
+	{
+		
+	}
+	
+	private function showNextScene() : Void
 	{
 		if (this.soundChannel != null) {
 			this.soundChannel.stop();
-			this.soundChannel = this.sound.play();
 		}
+		
+		this.currentSceneIndex++;
+		this.currentScene = project.getScene(this.currentSceneIndex);			
+		
+		var background:Sprite = this.addRasterizedVector(this.project.scenesFile, this.currentScene.background, Resize.AtMost, this.stageWidth, this.stageHeight);
+		
+		if (this.background != null) {
+			// Fix Z order
+			this.swapChildren(background, this.background);
+			this.removeImage(this.background);
+		}
+		this.background = background;
+		
+		this.textField.text = this.currentScene.text;
+		this.playCurrentSceneAudio();
 	}
 }
