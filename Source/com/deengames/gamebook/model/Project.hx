@@ -12,11 +12,13 @@ class Project
 
 	private var scenes:BlastList<Scene>;
 	public var name(getName, null) : String;
+	public var scenesFile(getScenesFile, null) : String;
 	public var sceneCount(getSceneCount, null) : Int;
 	
-	public function new(name:String) 
+	public function new(name:String, scenesFile:String) 
 	{
 		this.name = name;
+		this.scenesFile = scenesFile;
 		this.scenes = new BlastList<Scene>();
 	}
 	
@@ -38,5 +40,10 @@ class Project
 	private function getSceneCount() : Int
 	{
 		return this.scenes.length;
+	}
+	
+	private function getScenesFile() : String
+	{
+		return this.scenesFile;
 	}
 }

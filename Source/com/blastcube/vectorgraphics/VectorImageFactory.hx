@@ -22,7 +22,7 @@ class VectorImageFactory
 {
 
 	private static var cachedRasterizedImages:Hash<BitmapData> = new Hash<BitmapData>();
-	public static var isCachingEnabled:Bool = false;
+	public static var isCachingEnabled:Bool = true;
 	
 	/**
 	 * Loads an image from an SWF. 
@@ -41,7 +41,7 @@ class VectorImageFactory
 		
 		if (symbol == null) {
 			throw new Exception("Can't load SWF: " + swfName);
-		}
+		}		
 
 		var sourceBitmapData:Sprite = symbol.createMovieClip(symbolName);
 		
@@ -83,7 +83,13 @@ class VectorImageFactory
 		}
 		
 		var idealW:Float = (r.width * scale);
-		var idealH:Float = (r.height * scale);		
+		if (Math.isNaN(idealW)) {
+			throw new Exception("There's an improperly sized image: swf=" + swfName + " and symbol=" + symbolName + " (make sure it has a non-zero width)");
+		}
+		var idealH:Float = (r.height * scale);
+		if (Math.isNaN(idealH)) {
+			throw new Exception("There's an improperly sized image: swf=" + swfName + " and symbol=" + symbolName + " (make sure it has a non-zero height)");
+		}
 		
 		if (bmd == null) {
 			// Cache miss. Create it.			
