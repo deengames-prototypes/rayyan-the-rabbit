@@ -1,5 +1,6 @@
 package com.deengames.gamebook.screen;
 import com.blastcube.core.exception.Exception;
+import com.blastcube.core.Game;
 import com.blastcube.core.Screen;
 import com.blastcube.vectorgraphics.Resize;
 import com.blastcube.vectorgraphics.VectorImageFactory;
@@ -75,7 +76,7 @@ class ShowScenesScreen extends Screen
 			// Sneaky validation: preload
 			VectorImageFactory.loadImage(project.scenesFile, scene.background);
 			
-			var audioFileName:String = "assets/audio/scene" + (i + 1) + ".mp3";
+			var audioFileName:String = "assets/audio/scenes/scene" + (i + 1) + ".mp3";
 			if (Assets.getSound(audioFileName) == null) {
 				throw new Exception("Can't find audio " + audioFileName + " for scene " + scene.name);
 			}
@@ -116,7 +117,7 @@ class ShowScenesScreen extends Screen
 	
 	private function playCurrentSceneAudio() : Void
 	{
-		this.sound = Assets.getSound("assets/audio/scene" + (currentSceneIndex + 1) + ".mp3");
+		this.sound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + ".mp3");
 		this.soundChannel = sound.play();
 	}
 	
@@ -126,6 +127,11 @@ class ShowScenesScreen extends Screen
 		nextButton.x = (this.width - nextButton.width);
 		nextButton.y = 0;
 		nextButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
+			
+			if (this.soundChannel != null) {
+				this.soundChannel.stop();
+			}
+			
 			if (this.currentSceneIndex == this.project.sceneCount - 1) {
 				showTheEndScene();
 			} else {
@@ -136,15 +142,26 @@ class ShowScenesScreen extends Screen
 	
 	private function showTheEndScene() : Void
 	{
+		var background:Sprite = this.addRasterizedVector(this.project.scenesFile, "theend", Resize.AtMost, this.stageWidth, this.stageHeight);
+		// Conveniently covers everything. Just slap a new button on top and we're done.
+		var homeButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "homeButton", Resize.AtMost, Math.floor(this.stageWidth / 5), Math.floor(this.stageHeight / 5));
 		
+		this.sound = Assets.getSound("assets/audio/scenes/theend.mp3");
+		this.soundChannel = sound.play();
+		
+		homeButton.x = (this.stageWidth - homeButton.width) / 2;
+		homeButton.y = this.stageHeight - (2 * homeButton.height);		
+		
+		homeButton.addEventListener(MouseEvent.CLICK, function(event:Event) {
+			if (this.soundChannel != null) {
+				this.soundChannel.stop();
+			}
+			Game.showScreen(new TitleScreen());
+		});
 	}
 	
 	private function showNextScene() : Void
 	{
-		if (this.soundChannel != null) {
-			this.soundChannel.stop();
-		}
-		
 		this.currentSceneIndex++;
 		this.currentScene = project.getScene(this.currentSceneIndex);			
 		

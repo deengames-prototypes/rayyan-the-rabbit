@@ -37,9 +37,9 @@ class TitleScreen extends Screen
 		});
 		*/
 		
-		var startButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.NoResize);
-		startButton.x = (this.width - startButton.width) / 2;
-		startButton.y = this.height - startButton.height - 16;
+		var startButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.AtMost, Math.floor(this.stageWidth / 5), Math.floor(this.stageWidth / 5));
+		startButton.x = (this.stageWidth - startButton.width) / 2;
+		startButton.y = this.stageHeight - (2 * startButton.height);
 		startButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
 			Game.showScreen(new ShowScenesScreen(GameBookMain.projectFileName));
 		});
