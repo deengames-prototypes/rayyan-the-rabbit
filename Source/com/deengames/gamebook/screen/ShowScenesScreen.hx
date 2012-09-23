@@ -44,8 +44,10 @@ class ShowScenesScreen extends Screen
 	private var window:Sprite;
 	
 	// Control audio playback
-	private var sound:Sound;
-	private var soundChannel:SoundChannel;
+	private var speechSound:Sound;
+	private var speechSoundChannel:SoundChannel;
+	private var bgSound:Sound;
+	private var bgSoundChannel:SoundChannel;
 	
 	public function new(fileName:String) 
 	{	
@@ -108,17 +110,31 @@ class ShowScenesScreen extends Screen
 		playButton.x = this.width - playButton.width - TEXT_FIELD_BORDER_SIZE;
 		playButton.y = this.window.y + AUDIO_BUTTON_OFFSET;
 		playButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
-			if (this.soundChannel != null) {
-				this.soundChannel.stop();
-				this.soundChannel = this.sound.play();
+			if (this.speechSoundChannel != null) {
+				this.speechSoundChannel.stop();
+				this.speechSoundChannel = this.speechSound.play();
 			}
 		});
 	}
 	
 	private function playCurrentSceneAudio() : Void
 	{
-		this.sound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + ".mp3");
-		this.soundChannel = sound.play();
+		if (this.speechSoundChannel != null) {
+			this.speechSoundChannel.stop();
+		}
+
+		if (this.bgSoundChannel != null) {
+			this.bgSoundChannel.stop();
+		}
+		
+		this.speechSound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + ".mp3");
+		this.speechSoundChannel = this.speechSound.play();
+		
+		this.bgSound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + "-background.mp3");
+		
+		if (this.bgSound != null) {
+			this.bgSoundChannel = this.bgSound.play();
+		}
 	}
 	
 	private function addNextSceneButton() : Void
@@ -127,11 +143,6 @@ class ShowScenesScreen extends Screen
 		nextButton.x = (this.width - nextButton.width);
 		nextButton.y = 0;
 		nextButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
-			
-			if (this.soundChannel != null) {
-				this.soundChannel.stop();
-			}
-			
 			if (this.currentSceneIndex == this.project.sceneCount - 1) {
 				showTheEndScene();
 			} else {
@@ -146,15 +157,15 @@ class ShowScenesScreen extends Screen
 		// Conveniently covers everything. Just slap a new button on top and we're done.
 		var homeButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "homeButton", Resize.AtMost, Math.floor(this.stageWidth / 5), Math.floor(this.stageHeight / 5));
 		
-		this.sound = Assets.getSound("assets/audio/scenes/theend.mp3");
-		this.soundChannel = sound.play();
+		this.speechSound = Assets.getSound("assets/audio/scenes/theend.mp3");
+		this.speechSoundChannel = speechSound.play();
 		
 		homeButton.x = (this.stageWidth - homeButton.width) / 2;
 		homeButton.y = this.stageHeight - (2 * homeButton.height);		
 		
 		homeButton.addEventListener(MouseEvent.CLICK, function(event:Event) {
-			if (this.soundChannel != null) {
-				this.soundChannel.stop();
+			if (this.speechSoundChannel != null) {
+				this.speechSoundChannel.stop();
 			}
 			Game.showScreen(new TitleScreen());
 		});
