@@ -1,4 +1,4 @@
 <project fileVersion="1" name="Rayyan the Rabbit" scenesFile="assets/swf/scenes.swf">
-	<scene name="Scene 1" background="beach" text="'Tawfique the Turtle is sick,' mom says. 'Be a dear, Rayyan, and fetch some seaweed from the coast for me for his medicine. Oh, and don't go alone -- Croc might be around.' 'Okay mom!' Rayyan yells, as he darts out the den." />
+	<scene name="Scene 1" background="beach" backgroundAudio="beach-background.mp3" text="'Tawfique the Turtle is sick,' mom says. 'Be a dear, Rayyan, and fetch some seaweed from the coast for me for his medicine. Oh, and don't go alone -- Croc might be around.' 'Okay mom!' Rayyan yells, as he darts out the den." />
 	<scene name="Scene 2" background="scene2" text="All your Deen Games are belong to us!" />
 </project>
