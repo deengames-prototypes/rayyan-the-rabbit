@@ -78,7 +78,7 @@ class ShowScenesScreen extends Screen
 			// Sneaky validation: preload
 			VectorImageFactory.loadImage(project.scenesFile, scene.background);
 			
-			var audioFileName:String = "assets/audio/scenes/scene" + (i + 1) + ".mp3";
+			var audioFileName:String = "assets/audio/scenes/narration/scene" + (i + 1) + ".mp3";
 			if (Assets.getSound(audioFileName) == null) {
 				throw new Exception("Can't find audio " + audioFileName + " for scene " + scene.name);
 			}
@@ -121,11 +121,11 @@ class ShowScenesScreen extends Screen
 	{
 		this.haltCurrentAudio();
 		
-		this.speechSound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + ".mp3");
+		this.speechSound = Assets.getSound("assets/audio/scenes/narration/scene" + (currentSceneIndex + 1) + ".mp3");
 		this.speechSoundChannel = this.speechSound.play();
 		
 		if (this.currentScene.hasBackgroundAudio) {
-			this.bgSound = Assets.getSound("assets/audio/scenes/" + this.currentScene.backgroundAudio);
+			this.bgSound = Assets.getSound("assets/audio/scenes/background/" + this.currentScene.backgroundAudio);
 			this.bgSoundChannel = this.bgSound.play();
 		}
 	}
@@ -164,7 +164,7 @@ class ShowScenesScreen extends Screen
 		// Conveniently covers everything. Just slap a new button on top and we're done.
 		var homeButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "homeButton", Resize.AtMost, Math.floor(this.stageWidth / 5), Math.floor(this.stageHeight / 5));
 		
-		this.speechSound = Assets.getSound("assets/audio/scenes/theend.mp3");
+		this.speechSound = Assets.getSound("assets/audio/scenes/narration/theend.mp3");
 		this.speechSoundChannel = speechSound.play();
 		
 		homeButton.x = (this.stageWidth - homeButton.width) / 2;
