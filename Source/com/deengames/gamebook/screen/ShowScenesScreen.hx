@@ -119,21 +119,25 @@ class ShowScenesScreen extends Screen
 	
 	private function playCurrentSceneAudio() : Void
 	{
+		this.haltCurrentAudio();
+		
+		this.speechSound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + ".mp3");
+		this.speechSoundChannel = this.speechSound.play();
+		
+		if (this.currentScene.hasBackgroundAudio) {
+			this.bgSound = Assets.getSound("assets/audio/scenes/" + this.currentScene.backgroundAudio);
+			this.bgSoundChannel = this.bgSound.play();
+		}
+	}
+	
+	private function haltCurrentAudio() : Void
+	{
 		if (this.speechSoundChannel != null) {
 			this.speechSoundChannel.stop();
 		}
 
 		if (this.bgSoundChannel != null) {
 			this.bgSoundChannel.stop();
-		}
-		
-		this.speechSound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + ".mp3");
-		this.speechSoundChannel = this.speechSound.play();
-		
-		this.bgSound = Assets.getSound("assets/audio/scenes/scene" + (currentSceneIndex + 1) + "-background.mp3");
-		
-		if (this.bgSound != null) {
-			this.bgSoundChannel = this.bgSound.play();
 		}
 	}
 	
@@ -142,7 +146,10 @@ class ShowScenesScreen extends Screen
 		var nextButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.AtLeast, this.TEXT_FIELD_TOOLBAR_HEIGHT, this.TEXT_FIELD_TOOLBAR_HEIGHT);
 		nextButton.x = (this.width - nextButton.width);
 		nextButton.y = 0;
+		
 		nextButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
+			haltCurrentAudio();
+			
 			if (this.currentSceneIndex == this.project.sceneCount - 1) {
 				showTheEndScene();
 			} else {

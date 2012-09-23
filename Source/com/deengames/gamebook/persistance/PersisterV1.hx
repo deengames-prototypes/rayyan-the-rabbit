@@ -59,6 +59,11 @@ class PersisterV1
 			var name:String = scene.att.name;
 			var bg:String = scene.att.background;
 			var text:String = scene.att.text;
+			var bgAudio:String = "";
+			
+			if (scene.has.backgroundAudio) {
+				bgAudio = scene.att.backgroundAudio;
+			}
 			
 			if (bg == "") {
 				throw new Exception("Scene " + name + " is missing a background.");
@@ -68,7 +73,7 @@ class PersisterV1
 				throw new Exception("Scene " + name + " is missing text.");
 			}
 			
-			toReturn.addScene(new Scene(name, bg, text));
+			toReturn.addScene(new Scene(name, bg, text, bgAudio));
 		}
 		
 		return toReturn;
