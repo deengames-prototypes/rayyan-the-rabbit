@@ -42,7 +42,7 @@ class TitleScreen extends Screen
 			}
 		});
 		
-		this.sound = Assets.getSound("assets/audio/scenes/titlescreen.mp3");
+		this.sound = Assets.getSound("assets/audio/scenes/narration/titlescreen.mp3");
 		this.soundChannel = sound.play();
 	}
 }
