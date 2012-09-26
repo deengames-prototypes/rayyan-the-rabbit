@@ -18,7 +18,7 @@ class PersisterV1Test
 	{
 		var project:Project = new PersisterV1().deserializeProject(
 			"<project fileVersion=\"1\" name=\"Rayyan the Rabbit\" scenesFile=\"scenes.swf\">" +
-			"	<scene name=\"Scene 1\" background=\"beach\" text=\"Hi mom!\" />" +
+			"	<scene name=\"Scene 1\" background=\"beach\" backgroundAudio=\"seagulls.mp3\" text=\"Hi mom!\" />" +
 			"	<scene name=\"Scene 2\" background=\"scene2\" text=\"...\" />" +
 			"</project>");
 			
@@ -29,6 +29,7 @@ class PersisterV1Test
 		Assert.areEqual("Scene 1", s1.name);
 		Assert.areEqual("beach", s1.background);
 		Assert.areEqual("Hi mom!", s1.text);
+		Assert.areEqual("seagulls.mp3", s1.backgroundAudio);
 	}
 	
 	@Test
