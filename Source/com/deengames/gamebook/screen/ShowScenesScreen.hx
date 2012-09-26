@@ -62,7 +62,7 @@ class ShowScenesScreen extends Screen
 		this.background = this.addRasterizedVector("assets/swf/dummy.swf", "dummy", Resize.AtMost, this.stageWidth, this.stageHeight);
 		
 		this.window = this.addRasterizedVector("assets/swf/window.swf", "window", Resize.AtMost, this.stageWidth, this.stageHeight);
-		window.y = this.stageHeight - window.height;
+		//window.y = this.stageHeight - window.height;
 		
 		this.addTextWindow();
 		this.addPlayAudioButton();
@@ -102,7 +102,7 @@ class ShowScenesScreen extends Screen
 		this.TEXT_FIELD_TOOLBAR_HEIGHT = Math.floor(this.window.scaleY * TEXT_FIELD_TOOLBAR_ORIGINAL_HEIGHT);
 		
 		this.textField.x = this.TEXT_FIELD_BORDER_SIZE;
-		this.textField.y = this.stageHeight - this.window.height + this.TEXT_FIELD_TOOLBAR_HEIGHT + this.TEXT_FIELD_BORDER_SIZE;
+		this.textField.y = /*this.stageHeight - this.window.height +*/ this.TEXT_FIELD_TOOLBAR_HEIGHT + this.TEXT_FIELD_BORDER_SIZE;
 	}
 	
 	private function addPlayAudioButton() : Void
@@ -144,9 +144,9 @@ class ShowScenesScreen extends Screen
 	
 	private function addNextSceneButton() : Void
 	{
-		var nextButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.AtLeast, this.TEXT_FIELD_TOOLBAR_HEIGHT, this.TEXT_FIELD_TOOLBAR_HEIGHT);
-		nextButton.x = (this.width - nextButton.width);
-		nextButton.y = 0;
+		var nextButton:Sprite = this.addRasterizedVector("assets/swf/buttons.swf", "startButton", Resize.AtLeast, this.TEXT_FIELD_TOOLBAR_HEIGHT * 2, this.TEXT_FIELD_TOOLBAR_HEIGHT * 2);
+		nextButton.x = (this.stageWidth - nextButton.width);
+		nextButton.y = this.stageHeight - nextButton.height;
 		
 		nextButton.addEventListener(MouseEvent.MOUSE_DOWN, function(event:Event) {
 			haltCurrentAudio();
