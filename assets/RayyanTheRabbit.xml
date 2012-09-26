@@ -1,4 +1,4 @@
 <project fileVersion="1" name="Rayyan the Rabbit" scenesFile="assets/swf/scenes.swf">
-	<scene name="Scene 1" background="beach" backgroundAudio="beach-background.mp3" text="'Tawfique the Turtle is sick,' mom says. 'Be a dear, Rayyan, and fetch some seaweed from the coast for me for his medicine. Oh, and don't go alone -- Croc might be around.' 'Okay mom!' Rayyan yells, as he darts out the den." />
-	<scene name="Scene 2" background="scene2" text="All your Deen Games are belong to us!" />
+	<scene name="Scene 1" background="beach" backgroundAudio="beach.mp3" text="'Tawfique the Turtle is sick,' mom says. 'Be a dear, Rayyan, and fetch some seaweed from the coast for me for his medicine. Oh, and don't go alone -- Croc might be around.' 'Okay mom!' Rayyan yells, as he darts out the den." />
+	<scene name="Scene 2" background="scene2" backgroundAudio="swamp.mp3" text="Rayyan leaps into the sunlight. As he lands on dew-wet grass, he spots his friend Bilal the racoon.\n'Salams,' Bilal says. 'Let's play hide and seek in the swamp!'\n'Salams,' Rayyan replies. 'I can't right now. Mom sent me to get something from the beach for Tawfeeq's medicine.'\n'Oh, I'll come too,' Bilal says. They hurry off towards the distant sand." />
 </project>

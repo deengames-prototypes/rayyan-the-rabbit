@@ -9,6 +9,7 @@ import com.deengames.gamebook.model.Scene;
 import com.deengames.gamebook.persistance.PersistanceMediator;
 import format.SWF;
 import format.swf.MovieClip;
+import haxe.Timer;
 import nme.Assets;
 import nme.display.Bitmap;
 import nme.display.Sprite;
@@ -126,8 +127,8 @@ class ShowScenesScreen extends Screen
 		
 		if (this.currentScene.hasBackgroundAudio) {
 			this.bgSound = Assets.getSound("assets/audio/scenes/background/" + this.currentScene.backgroundAudio);
-			this.bgSoundChannel = this.bgSound.play();
-		}
+			this.bgSoundChannel = this.bgSound.play(0, 1000000); // Repeat 1M times.
+		}		
 	}
 	
 	private function haltCurrentAudio() : Void
