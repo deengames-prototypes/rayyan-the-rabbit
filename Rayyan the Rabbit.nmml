@@ -17,7 +17,7 @@
 
 	<assets path="assets" rename="assets" include="*" />
 	
-	<icon name="assets/nme.svg" />
+	<icon name="assets/logo.svg" />
 	
 	<ndll name="std" />
 	<ndll name="regexp" />
