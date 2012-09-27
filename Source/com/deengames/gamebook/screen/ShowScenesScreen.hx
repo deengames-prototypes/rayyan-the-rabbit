@@ -18,6 +18,7 @@ import nme.events.MouseEvent;
 import nme.Lib;
 import nme.media.Sound;
 import nme.media.SoundChannel;
+import nme.media.SoundTransform;
 import nme.text.TextField;
 
 using com.blastcube.extensions.TextFieldExtensions;
@@ -128,6 +129,9 @@ class ShowScenesScreen extends Screen
 		if (this.currentScene.hasBackgroundAudio) {
 			this.bgSound = Assets.getSound("assets/audio/scenes/background/" + this.currentScene.backgroundAudio);
 			this.bgSoundChannel = this.bgSound.play(0, 1000000); // Repeat 1M times.
+			
+			var volume:SoundTransform = new SoundTransform(0.5, 0);
+			this.bgSoundChannel.soundTransform = volume;
 		}		
 	}
 	
