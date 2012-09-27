@@ -17,7 +17,7 @@ class ProjectTest
 		var p:Project = new Project("Iteration Test", "N/A");
 		
 		for (i in 0 ... 3) {
-			p.addScene(new Scene("Scene " + i, "", ""));
+			p.addScene(new Scene("Scene " + i, "", "", ""));
 		}
 		
 		for (i in 0 ... 3) {

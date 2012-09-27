@@ -58,6 +58,7 @@ class PersisterV1
 		for (scene in fast.node.project.nodes.scene) {
 			var name:String = scene.att.name;
 			var bg:String = scene.att.background;
+			var narration:String = scene.att.narration;
 			var text:String = scene.att.text;
 			var bgAudio:String = "";
 			
@@ -73,7 +74,11 @@ class PersisterV1
 				throw new Exception("Scene " + name + " is missing text.");
 			}
 			
-			toReturn.addScene(new Scene(name, bg, text, bgAudio));
+			if (narration == "") {
+				throw new Exception("Scene " + name + " is missing the narration file attribute.");
+			}
+			
+			toReturn.addScene(new Scene(name, bg, narration, text, bgAudio));
 		}
 		
 		return toReturn;
